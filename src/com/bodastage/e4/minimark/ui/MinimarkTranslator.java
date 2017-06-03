@@ -8,9 +8,6 @@ import java.io.Reader;
 import java.io.Writer;
 
 public class MinimarkTranslator {
-	public static void main(String[] args) throws IOException {
-		convert(new FileReader("in.txt"), new FileWriter("out.txt"));
-	}
 
 	public static void convert(Reader reader, Writer writer) throws IOException {
 		BufferedReader lines = new BufferedReader(reader);

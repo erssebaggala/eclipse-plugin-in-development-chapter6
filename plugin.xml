@@ -11,5 +11,14 @@
             name="Minimark">
       </editor>
    </extension>
+   <extension
+         id="id1"
+         point="org.eclipse.core.resources.builders">
+      <builder
+            callOnEmptyDelta="false"
+            hasNature="false"
+            isConfigurable="false"></builder>
+            <run class="com.bodastage.e4.minimark.ui.MinimarkBuilder"/>
+   </extension>
 
 </plugin>
