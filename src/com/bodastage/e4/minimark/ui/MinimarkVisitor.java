@@ -71,9 +71,11 @@ public class MinimarkVisitor implements IResourceProxyVisitor, IResourceDeltaVis
 				ByteArrayInputStream contents = new ByteArrayInputStream(baos.toByteArray());
 
 				if (baos.size() < 100) {
-					//System.out.println("Minimark file is empty");
+					// System.out.println("Minimark file is empty");
+					
+					// IMarker marker = resource.createMarker(IMarker.PROBLEM);
+					IMarker marker = resource.createMarker("com.bodastage.e4.minimark.ui.MinimarkMarker");
 
-					IMarker marker = resource.createMarker(IMarker.PROBLEM);
 					marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_ERROR);
 					marker.setAttribute(IMarker.MESSAGE, "Minimark file is empty");
 					marker.setAttribute(IMarker.LINE_NUMBER, 1);
