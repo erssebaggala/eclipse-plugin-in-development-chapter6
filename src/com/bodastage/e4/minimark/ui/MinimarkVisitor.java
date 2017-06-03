@@ -22,7 +22,11 @@ public class MinimarkVisitor implements IResourceProxyVisitor, IResourceDeltaVis
 
 	@Override
 	public boolean visit(IResourceDelta delta) throws CoreException {
-		return false;
+		IResource resource = delta.getResource();
+		if (resource.getName().endsWith(".minimark")) {
+			processResource(resource);
+		}
+		return true;
 	}
 
 	@Override
@@ -30,7 +34,7 @@ public class MinimarkVisitor implements IResourceProxyVisitor, IResourceDeltaVis
 		String name = proxy.getName();
 		if (name != null && name.endsWith(".minimark")) {
 			// found a source file
-			//System.out.println("Processing " + name);
+			// System.out.println("Processing " + name);
 			processResource(proxy.requestResource());
 		}
 		return true;
@@ -45,8 +49,7 @@ public class MinimarkVisitor implements IResourceProxyVisitor, IResourceDeltaVis
 			IFile htmlFile = container.getFile(new Path(htmlName));
 
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			MinimarkTranslator.convert(new InputStreamReader(in),
-					new OutputStreamWriter(baos));
+			MinimarkTranslator.convert(new InputStreamReader(in), new OutputStreamWriter(baos));
 			ByteArrayInputStream contents = new ByteArrayInputStream(baos.toByteArray());
 
 			if (htmlFile.exists()) {
