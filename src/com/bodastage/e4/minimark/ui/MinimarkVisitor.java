@@ -36,16 +36,27 @@ public class MinimarkVisitor implements IResourceProxyVisitor, IResourceDeltaVis
 		return true;
 	}
 
-	private void processResource(IResource resource) throws CoreException {
-		if (resource instanceof IFile) {
-			try {
-				IFile file = (IFile) resource;
-				InputStream in = file.getContents();
-				MinimarkTranslator.convert(new InputStreamReader(in), new OutputStreamWriter(System.out));
-			} catch (IOException e) {
-				throw new CoreException(
-						new Status(Status.ERROR, Activator.PLUGIN_ID, "Failed to generate resource", e));
+	private void processResource(IResource resource) {
+		try {
+			IFile file = (IFile) resource;
+			InputStream in = file.getContents();
+			String htmlName = file.getName().replace(".minimark", ".html");
+			IContainer container = file.getParent();
+			IFile htmlFile = container.getFile(new Path(htmlName));
+
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			MinimarkTranslator.convert(new InputStreamReader(in),
+					new OutputStreamWriter(baos));
+			ByteArrayInputStream contents = new ByteArrayInputStream(baos.toByteArray());
+
+			if (htmlFile.exists()) {
+				htmlFile.setContents(contents, true, false, null);
+			} else {
+				htmlFile.create(contents, true, null);
 			}
+			htmlFile.setDerived(true, null);
+		} catch (Exception e) {
+
 		}
 	}
 
