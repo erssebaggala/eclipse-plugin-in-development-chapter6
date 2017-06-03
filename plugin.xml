@@ -22,5 +22,25 @@
         </builder>
             
    </extension>
-
+   <extension
+         id="MinimarkNature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="com.bodastage.e4.minimark.ui.MinimarkNature">
+         </run>
+      </runtime>
+   </extension>
+	<extension point="org.eclipse.ui.commands">
+		<command name="Add Minimark Nature"
+		defaultHandler="com.bodastage.e4.minimark.ui.AddMinimarkHandler"
+		id="com.bodastage.e4.minimark.ui.AddMinimarkNature"/>
+	</extension>
+	<extension point="org.eclipse.ui.menus">
+		<menuContribution allPopups="false" locationURI=
+		"popup:org.eclipse.ui.projectConfigure?after=additions">
+			<command label="Add Minimark Nature" style="push"
+		commandId="com.bodastage.e4.minimark.ui.AddMinimarkNature"/>
+		</menuContribution>
+	</extension>
 </plugin>

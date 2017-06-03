@@ -11,6 +11,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 public class MinimarkBuilder extends IncrementalProjectBuilder {
 
+	public static final String ID = "com.bodastage.e4.minimark.ui.MinimarkBuilder";
+
 	@Override
 	protected IProject[] build(int kind, Map<String, String> args, IProgressMonitor monitor) throws CoreException {
 		if (kind == FULL_BUILD) {
@@ -31,7 +33,7 @@ public class MinimarkBuilder extends IncrementalProjectBuilder {
 	}
 
 	private void fullBuild(IProject project, IProgressMonitor monitor) throws CoreException {
-		project.accept(new MinimarkVisitor(),IResource.NONE);
+		project.accept(new MinimarkVisitor(), IResource.NONE);
 	}
 
 }
